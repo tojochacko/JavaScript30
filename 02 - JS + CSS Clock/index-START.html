@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>JS + CSS Clock</title>
-</head>
+</head> 
 <body>
 
 
@@ -36,7 +36,7 @@
     .clock {
       width: 30rem;
       height: 30rem;
-      border:20px solid white;
+      border:20px solid black;
       border-radius:50%;
       margin:50px auto;
       position: relative;
@@ -58,16 +58,37 @@
     .hand {
       width:50%;
       height:6px;
-      background:black;
+      background:white;
       position: absolute;
       top:50%;
+      transition: 0.05s;
+      transform: rotate(90deg);
+      transform-origin: 100%;
     }
 
   </style>
 
   <script>
+    setInterval(rotateClock, 1000);
 
+    function rotateClock() {
+      var now = new Date();
+      var seconds = now.getSeconds();
+      var secondsDegress = ((seconds/60)*360) + 90;
+      var secondsHand = document.querySelector('div.second-hand');
+      secondsHand.style.transform = 'rotate('+secondsDegress+'deg)';
 
+      var minutes = now.getMinutes();
+      var minsDegree = ((minutes/60)*360) + 90;
+      var minsHand = document.querySelector('div.min-hand');
+      minsHand.style.transform = 'rotate('+minsDegree+'deg)';
+
+      var hours = now.getHours();
+      hours = 21;
+      var hoursDegree = ((hours/12)*360) + 90;
+      var hoursHand = document.querySelector('div.hour-hand');
+      hoursHand.style.transform = 'rotate('+hoursDegree+'deg)';
+    }
   </script>
 </body>
 </html>
