@@ -58,6 +58,45 @@
       };
     }
 
+    //image is halfscrolled it should be active
+    //image is scrolled past it should be hidden
+
+
+    /* 
+       how do you get if image is half scrolled 
+        * check for the image offsetTop and calculate if the scroll postion is past that offsetTop 
+        * scroll position is calculated by checking the ScrollY position of the window + the window height 
+        * and the image half position
+
+    */
+
+    /* 
+       how do you get if image is scrolled past 
+        * get the image bottom position
+        * check if the window scrollY is past that image bottom position
+
+    */
+
+    
+    const sliderImages = document.querySelectorAll('.slide-in');
+    window.addEventListener('scroll', debounce(checkSlide));
+
+    function checkSlide(e) {
+        sliderImages.forEach(sliderImage => {
+            const slideInAt = (window.scrollY + window.innerHeight) - (sliderImage.height/2);
+            const isHalfScrolled = slideInAt > sliderImage.offsetTop; 
+
+            const imageBottom = sliderImage.offsetTop + sliderImage.height;
+            const isScrolledPast = window.scrollY > imageBottom;
+            if(isHalfScrolled && !isScrolledPast) {
+                sliderImage.classList.add('active');
+            }
+            else {
+                sliderImage.classList.remove('active');
+            }
+        });
+    }
+
   </script>
 
   <style>
